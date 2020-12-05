@@ -34,6 +34,11 @@ def part_2(entries):
     print(f'Part2: {valid_passwords}')
 
 
-entries = read_file_data("input.txt")
-part_1(entries)
-part_2(entries)
+def main():
+    entries = read_file_data("day02_input.txt")
+    part_1(entries)
+    part_2(entries)
+
+
+if __name__ == "__main__":
+    main()
