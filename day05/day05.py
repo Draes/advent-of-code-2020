@@ -16,12 +16,21 @@ def search_value(value):
     return int(start)
 
 
+# alternative with binary conversion
+def search_value_binary(value):
+    binary_value = value.replace("B", "1") \
+        .replace("F", "0") \
+        .replace("R", "1") \
+        .replace("L", "0")
+    return int(binary_value, 2)
+
+
 def main():
     seats = read_file_data("day05_input.txt")
     seat_ids = list(map(lambda s: search_value(s[:7]) * 8 + search_value(s[7:]), seats))
     seat_ids.sort()
 
-    max_seat= max(seat_ids)
+    max_seat = max(seat_ids)
     print(f"Part1: {max_seat}")
 
     missing_seats = list(filter(lambda s: s not in seat_ids, range(min(seat_ids), max_seat)))
