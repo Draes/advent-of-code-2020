@@ -7,8 +7,8 @@ def read_passports():
     for line in lines:
         passport = {}
         for x in line.split(" "):
-            params = x.split(":")
-            passport[params[0]] = params[1]
+            attribute, value = x.split(":")
+            passport[attribute] = value
         passports.append(passport)
     return passports
 
@@ -49,7 +49,8 @@ def eyr(value):
         return 2020 <= int(value) <= 2030
 
 
-def get_field_validator(key):
+def validate_passport(passport):
+    attribute, value = passport
     return {
         "byr": byr,
         "iyr": iyr,
@@ -59,11 +60,11 @@ def get_field_validator(key):
         "ecl": ecl,
         "pid": pid,
         "cid": lambda _: True
-    }.get(key)
+    }.get(attribute)(value)
 
 
 def validate_all_fields(passport):
-    validations = list(map(lambda p: get_field_validator(p[0])(p[1]), passport.items()))
+    validations = list(map(validate_passport, passport.items()))
     return all(v is True for v in validations)
 
 
