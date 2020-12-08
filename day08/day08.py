@@ -6,16 +6,13 @@ accumulator = 0
 
 def read_file_data(path):
     with open(path) as fp:
-        return list(map(str.rstrip, fp))
+        return list(map(map_instruction, fp))
 
 
-def map_instruction(file):
-    instructions = []
-    for line in file:
-        search = re.search(REGEX, line)
-        operation, argument = search.groups()
-        instructions.append((operation, argument))
-    return instructions
+def map_instruction(line):
+    search = re.search(REGEX, line.rstrip())
+    operation, argument = search.groups()
+    return operation, argument
 
 
 def acc(argument):
@@ -87,8 +84,7 @@ def part_2(instructions):
 
 
 def main():
-    file = read_file_data("day08_input.txt")
-    instructions = map_instruction(file)
+    instructions = read_file_data("day08_input.txt")
 
     part_1(instructions)
     part_2(instructions)
