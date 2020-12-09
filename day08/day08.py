@@ -1,6 +1,6 @@
 import re
 
-REGEX = "([a-z]{3}) ([+-][0-9]+)"
+INSTRUCTION_PATTERN = "([a-z]{3}) ([+-][0-9]+)"
 accumulator = 0
 
 
@@ -10,7 +10,7 @@ def read_file_data(path):
 
 
 def map_instruction(line):
-    search = re.search(REGEX, line.rstrip())
+    search = re.search(INSTRUCTION_PATTERN, line.rstrip())
     operation, argument = search.groups()
     return operation, argument
 
@@ -48,7 +48,6 @@ def is_infinite(instructions):
             position += run_instruction(operation, argument)
         else:
             return True
-    return False
 
 
 def get_indexes_of_operation(instructions, wanted):

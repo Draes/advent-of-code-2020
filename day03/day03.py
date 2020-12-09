@@ -30,7 +30,7 @@ def main():
 
     # Part 2
     slopes = {(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)}
-    results = list(map(lambda s: process_slope(file_data, (x_max, y_max), s), slopes))
+    results = [process_slope(file_data, (x_max, y_max), s) for s in slopes]
     print(functools.reduce(lambda a, b: a * b, results))
 
 

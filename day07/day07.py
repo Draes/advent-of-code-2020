@@ -37,7 +37,9 @@ def has_gold(bags, bag):
 def count_bags(bags, bag, total=0):
     if len(bag) == 0:
         return total
-    return total + sum(b["number"] * count_bags(bags, bags.get(b["bag"]), 1) for b in bag)
+
+    inner_bags = [b["number"] * count_bags(bags, bags.get(b["bag"]), 1) for b in bag]
+    return total + sum(inner_bags)
 
 
 def main():
