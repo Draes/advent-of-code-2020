@@ -3,14 +3,14 @@ def read_file_data(path):
         return list(map(int, fp))
 
 
-def calc_costs(tree_stuff, costs, search, total=0):
+def calc_costs(diffs, costs, search, total=0):
     if search in costs:
         return costs[search]
-    if len(tree_stuff[search]) == 0:
+    if len(diffs[search]) == 0:
         total = 1
 
-    for c in tree_stuff[search]:
-        total += calc_costs(tree_stuff, costs, c)
+    for adapter in diffs[search]:
+        total += calc_costs(diffs, costs, adapter)
     costs[search] = total
 
 
