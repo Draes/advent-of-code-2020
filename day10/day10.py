@@ -1,6 +1,9 @@
 def read_file_data(path):
     with open(path) as fp:
-        return list(map(int, fp))
+        adapters = list(map(int, fp))
+        adapters.append(0)
+        adapters.append(max(adapters) + 3)
+        return sorted(adapters)
 
 
 def calc_costs(diffs, costs, search, total=0):
@@ -42,9 +45,7 @@ def part2(adapters):
 
     # calc costs
     costs = dict()
-    keys = list(diff_map.keys())
-    keys.reverse()
-    for i in keys:
+    for i in reversed(list(diff_map.keys())):
         calc_costs(diff_map, costs, i)
 
     # combinations since joltage 0
@@ -53,9 +54,6 @@ def part2(adapters):
 
 def main():
     adapters = read_file_data("day10_input.txt")
-    adapters.append(0)
-    adapters.append(max(adapters) + 3)
-    adapters.sort()
 
     part1(adapters)
     part2(adapters)
