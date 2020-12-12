@@ -31,18 +31,18 @@ def do_instruction_part1(position, direction, instruction):
 
     if action in "RL":
         direction = {
-            "L": lambda v: (direction + v) % 360,
-            "R": lambda v: (direction - v) % 360
-        }.get(action)(value)
+            "L": (direction + value) % 360,
+            "R": (direction - value) % 360
+        }.get(action)
 
     else:
         position = {
-            "N": lambda v: (x, y - v),
-            "S": lambda v: (x, y + v),
-            "E": lambda v: (x + v, y),
-            "W": lambda v: (x - v, y),
-            "F": lambda v: move_forward(position, direction, v)
-        }.get(action)(value)
+            "N": (x, y - value),
+            "S": (x, y + value),
+            "E": (x + value, y),
+            "W": (x - value, y),
+            "F": move_forward(position, direction, value)
+        }.get(action)
     return position, direction
 
 
@@ -75,13 +75,13 @@ def do_instruction_part2(position, waypoint, instruction):
 
     else:
         waypoint = {
-            "N": lambda v: (xw, yw + v),
-            "S": lambda v: (xw, yw - v),
-            "E": lambda v: (xw + v, yw),
-            "W": lambda v: (xw - v, yw),
-            "L": lambda v: update_waypoint(waypoint, -v),
-            "R": lambda v: update_waypoint(waypoint, v)
-        }.get(action)(value)
+            "N": (xw, yw + value),
+            "S": (xw, yw - value),
+            "E": (xw + value, yw),
+            "W": (xw - value, yw),
+            "L": update_waypoint(waypoint, -value),
+            "R": update_waypoint(waypoint, value)
+        }.get(action)
 
     return position, waypoint
 
@@ -95,6 +95,7 @@ def part2(instructions):
     print(f"{east}E {north}N = {abs(east) + abs(north)}")
 
 
+# ----------------- Main -----------------
 def main():
     instructions = read_file_data("day12_input.txt")
     part1(instructions)
