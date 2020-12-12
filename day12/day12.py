@@ -21,7 +21,7 @@ def move_forward(position, direction, value):
         90: (x, y - value),
         180: (x - value, y),
         270: (x, y + value)
-    }.get(direction)
+    }.get(direction % 360)
     return pos
 
 
@@ -31,8 +31,8 @@ def do_instruction_part1(position, direction, instruction):
 
     if action in "RL":
         direction = {
-            "L": (direction + value) % 360,
-            "R": (direction - value) % 360
+            "L": direction + value,
+            "R": direction - value
         }.get(action)
 
     else:
@@ -43,6 +43,7 @@ def do_instruction_part1(position, direction, instruction):
             "W": (x - value, y),
             "F": move_forward(position, direction, value)
         }.get(action)
+
     return position, direction
 
 
